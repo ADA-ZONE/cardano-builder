@@ -106,6 +106,7 @@ wget -qO- https://github.com/redneb/ghc-alt-libc/releases/download/ghc-${ghc_ver
 cd /build/elogind \
   && apk add ninja bash meson m4 gperf libcap-dev eudev-dev gettext-dev \
   && git clone https://github.com/elogind/elogind.git . \
+  && git checkout v243-stable \
   && meson build \
   && ninja -C build \
   && mkdir libelogind \
