@@ -81,13 +81,14 @@ sleep 5
 # INSTALL GLOBAL PREREQUISITES
 apk update \
   && apk upgrade \
-  && apk add elogind-dev g++ git gmp-dev make ncurses-dev ncurses-static perl wget zlib-dev zlib-static
+  && apk add autoconf automake elogind-dev g++ git gmp-dev libtool make ncurses-dev ncurses-static perl wget zlib-dev zlib-static
 
 # CREATE DIRECTORY STRUCTURE
 mkdir -p /build/cabal
 mkdir -p /build/cardano
 mkdir -p /build/elogind
 mkdir -p /build/ghc
+mkdir -p /build/libsodium
 
 # INSTALL CABAL
 # The Haskell Common Architecture for Building Applications and Libraries 
@@ -122,6 +123,14 @@ save
 end" > libelogind.mri \
   && ar -M <libelogind.mri \
   && cp ./libelogind.a /lib
+
+cd /build/libsodium \
+  && git clone https://github.com/input-output-hk/libsodium . \
+  && git checkout 66f017f1 \
+  && ./autogen.sh \
+  && ./configure \
+  && make \
+  && make install
 
 # DOWNLOAD AND PREPARE CARDANO SOURCE CODE
 cd /build/cardano
