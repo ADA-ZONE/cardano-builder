@@ -137,8 +137,7 @@ cd /build/libsodium \
 cd /build/cardano
 git clone https://github.com/input-output-hk/cardano-node.git . \
  && git fetch --all --tags \
- && tag=$([ "${cardano_version}" = "latest" ] && echo $(git describe --tags $(git rev-list --tags --max-count=1)) || echo ${cardano_version}) \
- && git checkout tags/${tag} \
+ && git checkout ${cardano_version} \
  && /build/cabal/cabal update
 
 # BUILD : CARDANO NODE, CARDANO CLI
