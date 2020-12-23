@@ -1,0 +1,9 @@
+FROM alpine AS final
+
+RUN apk add bash
+
+COPY release_1-24-2/cardano-cli /usr/local/bin
+
+# FORCE BUILD COMMAND
+ENTRYPOINT ["cardano-cli"]
+CMD ["--help"]
